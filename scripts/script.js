@@ -24,37 +24,47 @@ const column = document.querySelectorAll('.col');
 
 let pressedKeys = [];
 
-const specialKeys = ["=", "+/-", "C", "( )", "/", "%", "*", "-"]
+const specialKeys = ["=", "+/-", "C", "( )", "/", "%", "*", "-", "+"]
+
+const operators = ["+", "-", "*", "/", "%"]
 
 let answer = '';
 
-const resetRule = function () {
+const resetRule =  () => {
     if (displayContent.textContent == answer) {
+        pressedKeys = [];
         displayContent.innerHTML = '';
     } else {
         //pass
     }
 }
 
-
-
 column.forEach(key => {
     key.addEventListener('click', () => {
         if (!specialKeys.includes(key.textContent)) {
-            resetRule();
+            resetRule();    
             displayContent.innerHTML += key.textContent;
             pressedKeys.push(key.textContent);
-
-        } else if (key.textContent == "C") {
+            
+        }else if (key.textContent == "C") {
+            resetRule();
             displayContent.innerHTML = "";
 
         } else if (key.textContent == "=") {
+            console.log(pressedKeys.join(''))
             answer = eval(pressedKeys.join(''))
             if (answer == undefined) {
                 answer = '';
             }
-            displayContent.innerHTML = answer
-            pressedKeys = [];
+            
+        displayContent.innerHTML = answer
+        } else if (operators.includes(key.textContent)) {
+            if(displayContent.textContent == ''){
+                //pass
+            }else {
+                displayContent.innerHTML += key.textContent;
+                pressedKeys.push(key.textContent);
+            }
         }
     })
 })
