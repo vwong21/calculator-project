@@ -24,7 +24,7 @@ const column = document.querySelectorAll('.col');
 
 let pressedKeys = [];
 
-const specialKeys = ["=", "+/-", "C", "( )", "/", "%", "*", "-", "+"]
+const specialKeys = ["=", "C", "( )", "/", "%", "*", "-", "+", "<"]
 
 const operators = ["+", "-", "*", "/"]
 
@@ -79,6 +79,12 @@ column.forEach(key => {
                 displayContent.innerHTML += key.textContent;
                 pressedKeys.push(key.textContent);
             }
+
+        // if backspace is pressed, remove the last character from the display and the last item from the pressedKeys array
+        } else if (key.textContent == '<') {
+            totalKeys = pressedKeys.join('')
+            displayContent.innerHTML = totalKeys.slice(0, -1)
+            pressedKeys.pop()
         }
     })
 })
