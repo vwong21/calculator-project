@@ -31,6 +31,7 @@ const operators = ["+", "-", "*", "/", "%"]
 let answer = '';
 
 const resetRule =  () => {
+    // if the answer is the same as displayed, pressedKeys list becomes empty and the display becomes empty
     if (displayContent.textContent == answer) {
         pressedKeys = [];
         displayContent.innerHTML = '';
@@ -41,23 +42,28 @@ const resetRule =  () => {
 
 column.forEach(key => {
     key.addEventListener('click', () => {
+
+        // if the pressed key is not a special key, reset the display, add the pressed key to the display, and add the pressed ke to pressedKeys list
         if (!specialKeys.includes(key.textContent)) {
             resetRule();    
             displayContent.innerHTML += key.textContent;
             pressedKeys.push(key.textContent);
-            
+
+        // if the Clear button is pressed, reset the display    
         }else if (key.textContent == "C") {
             resetRule();
-            displayContent.innerHTML = "";
 
+        // if the enter key is pressed, the answer variable is set to the sum of the pressedKeys list. if the answer is undefined, the answer variable is set to nothing
         } else if (key.textContent == "=") {
             console.log(pressedKeys.join(''))
             answer = eval(pressedKeys.join(''))
             if (answer == undefined) {
                 answer = '';
             }
-            
-        displayContent.innerHTML = answer
+            // the display is set to the answer
+            displayContent.innerHTML = answer
+        
+        // if the pressed key is an operator and the display is empty, nothing is added to the display
         } else if (operators.includes(key.textContent)) {
             if(displayContent.textContent == ''){
                 //pass
