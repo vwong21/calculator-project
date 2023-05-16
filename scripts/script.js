@@ -26,12 +26,12 @@ let pressedKeys = [];
 
 const specialKeys = ["=", "+/-", "C", "( )", "/", "%", "*", "-", "+"]
 
-const operators = ["+", "-", "*", "/", "%"]
+const operators = ["+", "-", "*", "/"]
 
 let answer = '';
 
 const resetRule =  () => {
-    // if the answer is the same as displayed, pressedKeys list becomes empty and the display becomes empty
+    // if the answer is the same as displayed, pressedKeys array becomes empty and the display becomes empty
     if (displayContent.textContent == answer) {
         pressedKeys = [];
         displayContent.innerHTML = '';
@@ -43,7 +43,7 @@ const resetRule =  () => {
 column.forEach(key => {
     key.addEventListener('click', () => {
 
-        // if the pressed key is not a special key, reset the display, add the pressed key to the display, and add the pressed ke to pressedKeys list
+        // if the pressed key is not a special key, reset the display, add the pressed key to the display, and add the pressed ke to pressedKeys array
         if (!specialKeys.includes(key.textContent)) {
             resetRule();    
             displayContent.innerHTML += key.textContent;
@@ -51,18 +51,26 @@ column.forEach(key => {
 
         // if the Clear button is pressed, reset the display    
         }else if (key.textContent == "C") {
-            resetRule();
+            pressedKeys = [];
+            displayContent.innerHTML = "";
 
-        // if the enter key is pressed, the answer variable is set to the sum of the pressedKeys list. if the answer is undefined, the answer variable is set to nothing
+        // if the enter key is pressed, the answer variable is set to the sum of the pressedKeys array. if the answer is undefined, the answer variable is set to nothing
         } else if (key.textContent == "=") {
-            console.log(pressedKeys.join(''))
             answer = eval(pressedKeys.join(''))
             if (answer == undefined) {
                 answer = '';
+            } else if (answer == 'Infinity') {
+                answer = '∞'
             }
             // the display is set to the answer
             displayContent.innerHTML = answer
+            pressedKeys = [answer]
         
+        // if the % key is pressed then /100 is pushed to the array
+        } else if (key.textContent == '%') {
+            pressedKeys.push('/100')
+            displayContent.innerHTML += '%'
+
         // if the pressed key is an operator and the display is empty, nothing is added to the display
         } else if (operators.includes(key.textContent)) {
             if(displayContent.textContent == ''){
