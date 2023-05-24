@@ -1,25 +1,4 @@
 const displayContent = document.getElementById('display-content');
-
-const zero = document.getElementById('0');
-const one = document.getElementById('1');
-const two = document.getElementById('2');
-const three = document.getElementById('3');
-const four = document.getElementById('4');
-const five = document.getElementById('5');
-const six = document.getElementById('6');
-const seven = document.getElementById('7');
-const eight = document.getElementById('8');
-const nine = document.getElementById('9');
-const clear = document.getElementById('clear');
-const brackets = document.getElementById('brackets');
-const percent = document.getElementById('percent');
-const divide = document.getElementById('divide');
-const multiply = document.getElementById('multiply');
-const subtract = document.getElementById('subtract');
-const addition = document.getElementById('addition');
-const posNeg = document.getElementById('pos-neg');
-const decimal = document.getElementById('decimal');
-const equal = document.getElementById('equal');
 const column = document.querySelectorAll('.col');
 
 let pressedKeys = [];
@@ -30,22 +9,15 @@ const operators = ["+", "-", "*", "/"]
 
 let answer = '';
 
-const resetRule =  () => {
-    // if the answer is the same as displayed, pressedKeys array becomes empty and the display becomes empty
-    if (displayContent.textContent == answer) {
-        pressedKeys = [];
-        displayContent.innerHTML = '';
-    } else {
-        //pass
-    }
-}
-
 column.forEach(key => {
     key.addEventListener('click', () => {
-
-        // if the pressed key is not a special key, reset the display, add the pressed key to the display, and add the pressed ke to pressedKeys array
+        
+        // if the pressed key is not a special key, reset the display, add the pressed key to the display and pressedKeys array
         if (!specialKeys.includes(key.textContent)) {
-            resetRule();    
+            if (displayContent.textContent == answer) {
+                pressedKeys = [];
+                displayContent.innerHTML = ''
+            } 
             displayContent.innerHTML += key.textContent;
             pressedKeys.push(key.textContent);
 
@@ -68,12 +40,17 @@ column.forEach(key => {
         
         // if the % key is pressed then /100 is pushed to the array
         } else if (key.textContent == '%') {
-            pressedKeys.push('/100')
-            displayContent.innerHTML += '%'
+            if (operators.includes(pressedKeys[pressedKeys.length - 1])) {
+                //pass
+            } else {
+                pressedKeys.push('/100')
+                displayContent.innerHTML += '%'
+            }
+            
 
         // if the pressed key is an operator and the display is empty, nothing is added to the display
         } else if (operators.includes(key.textContent)) {
-            if(displayContent.textContent == ''){
+            if(displayContent.textContent == '' || operators.includes(pressedKeys[pressedKeys.length - 1])) {
                 //pass
             }else {
                 displayContent.innerHTML += key.textContent;
@@ -82,9 +59,26 @@ column.forEach(key => {
 
         // if backspace is pressed, remove the last character from the display and the last item from the pressedKeys array
         } else if (key.textContent == '<') {
-            totalKeys = pressedKeys.join('')
-            displayContent.innerHTML = totalKeys.slice(0, -1)
             pressedKeys.pop()
+            displayContent.innerHTML = pressedKeys.join('')
+
+        // In the case that the bracket is pressed, if the display is empty and the last pressed key was an operator, then '(' will be displayed. Otherwise, if the pressed key doesn't include '(', then '*(' will be displayed. Otherwise, ')' will be displayed
+        } else if (key.textContent == '( )') {
+            if (displayContent.textContent == '' || operators.includes(pressedKeys[pressedKeys.length - 1])) {
+                displayContent.innerHTML += '('
+                pressedKeys.push('(')
+            } else if (!pressedKeys.includes('(')) {
+                pressedKeys.push('*')
+                pressedKeys.push('(')
+                displayContent.innerHTML = pressedKeys.join('')
+            } else {
+                displayContent.innerHTML += ')'
+                pressedKeys.push(')') 
+            }
         }
+ 
+        console.log(displayContent.textContent)
+        console.log(pressedKeys)
+        console.log(displayContent.textContent.length)
     })
 })
