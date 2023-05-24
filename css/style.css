@@ -11,16 +11,17 @@ html, body, .container {
 }
 
 #display-screen {
-    position: relative;
     height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: end;
 }
 
 #display-content {
-    position: absolute;
-    bottom: 0;
-    right: 10%;
-    height: 40%;
+    margin: 0 10%;
     font-size: 350%;
+    max-width: 80%;
 }
 
 #buttons {
@@ -54,4 +55,21 @@ html, body, .container {
 .col:active {
     background-color: #bebebe;
     border: #bebebe;
+}
+
+#popup {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 75%;
+    transform: translate(-50%,-50%);
+    background-color: rgb(100, 100, 100);
+    padding: 1rem;
+    border-radius: 30px;
+    opacity: 0.8;
+}
+
+#popup p {
+    margin: 0;
+    color: white;
 }
