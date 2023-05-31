@@ -2,8 +2,8 @@ const displayContent = document.getElementById('display-content');
 const column = document.querySelectorAll('.col');
 const popup = $('#popup')
 let pressedKeys = [];
-const specialKeys = ["=", "C", "( )", "/", "%", "*", "-", "+", "<"]
-const operators = ["+", "-", "*", "/"]
+const specialKeys = ["=", "C", "( )", "/", "%", "*", "+", "<"]
+const operators = ["+", "-", "*", "/", "."]
 let answer = '';
 
 column.forEach(key => {
@@ -43,8 +43,26 @@ column.forEach(key => {
             return
         }
 
-        // if the pressed key is not a special key, reset the display, add the pressed key to the display and pressedKeys array
-        if (!specialKeys.includes(key.textContent)) {
+        // if the pressed key is not a special key except for '-', reset the display, add the pressed key to the display and pressedKeys array
+        if (key.textContent == '-') {
+            if (operators.includes(pressedKeys[pressedKeys.length - 1])) {
+                //pass
+            } else {
+                displayContent.innerHTML += key.textContent;
+                pressedKeys.push(key.textContent);
+            }
+            
+
+        } else if (key.textContent == '.') {
+            if (pressedKeys[pressedKeys.length - 1] == '.') {
+                //pass
+            } else {
+                displayContent.innerHTML += key.textContent
+                pressedKeys.push(key.textContent)
+            }
+
+        }else if (!specialKeys.includes(key.textContent)) {
+            console.log(answer)
             if (displayContent.textContent == answer) {
                 pressedKeys = [];
                 displayContent.innerHTML = ''
@@ -54,7 +72,7 @@ column.forEach(key => {
         
         // if the % key is pressed then /100 is pushed to the array
         } else if (key.textContent == '%') {
-            if (operators.includes(pressedKeys[pressedKeys.length - 1])) {
+            if (operators.includes(pressedKeys[pressedKeys.length - 1]) || displayContent.textContent.slice(-1) == '%') {
                 //pass
             } else {
                 pressedKeys.push('/100')
