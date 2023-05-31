@@ -1,6 +1,12 @@
+@font-face {
+    font-family: comfortaa;
+    src: url(../fonts/Comfortaa-VariableFont_wght.ttf);
+}
+
 html, body, .container {
     margin: 0;
     height: 100%;
+    font-family: comfortaa;
 }
 
 .container {
@@ -16,12 +22,14 @@ html, body, .container {
     flex-direction: column;
     justify-content: end;
     align-items: end;
+    background: linear-gradient(#0066ff, #00bbff);
 }
 
 #display-content {
     margin: 0 10%;
     font-size: 350%;
     max-width: 80%;
+    color: #ffffff;
 }
 
 #buttons {
@@ -29,7 +37,6 @@ html, body, .container {
     flex-flow: column nowrap;
     justify-content: space-evenly;
     height: 60%;
-    border-top: 1px solid black;
 }
 
 .row {
@@ -44,17 +51,16 @@ html, body, .container {
 .col {
     height: 100%;   
     font-size: large;
-    font-weight: 500;
-    border: 1px solid #eeeeee;
+    font-weight: 600;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
 }
 
-.col:active {
-    background-color: #bebebe;
-    border: #bebebe;
+#clear:active, .col:active {
+    background-color: #00bbff;
+    color: white;
 }
 
 #popup {
@@ -72,4 +78,17 @@ html, body, .container {
 #popup p {
     margin: 0;
     color: white;
+}
+
+#zero, #one, #two, #three, #four, #five, #six, #seven, #eight, #nine {
+    font-weight: 400;
+}
+
+#equal {
+    background-color: #00b140;
+    color: #ffffff;
+}
+
+#clear {
+    color: #00bbff;
 }
