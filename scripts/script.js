@@ -72,7 +72,7 @@ column.forEach(key => {
         
         // if the % key is pressed then /100 is pushed to the array
         } else if (key.textContent == '%') {
-            if (operators.includes(pressedKeys[pressedKeys.length - 1]) || displayContent.textContent.slice(-1) == '%') {
+            if (operators.includes(pressedKeys[pressedKeys.length - 1]) || displayContent.textContent.slice(-1) == '%' || displayContent.textContent == '') {
                 //pass
             } else {
                 pressedKeys.push('/100')
