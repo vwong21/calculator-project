@@ -7,6 +7,7 @@ html, body, .container {
     margin: 0;
     height: 100%;
     font-family: comfortaa;
+    background-color: #000000;
 }
 
 .container {
@@ -22,7 +23,7 @@ html, body, .container {
     flex-direction: column;
     justify-content: end;
     align-items: end;
-    background: linear-gradient(#0066ff, #00bbff);
+    background: linear-gradient(#121212, #242124);
 }
 
 #display-content {
@@ -56,11 +57,8 @@ html, body, .container {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-}
-
-#clear:active, .col:active {
-    background-color: #00bbff;
-    color: white;
+    color: #ffffff;
+    background-color: #2C2C2C;
 }
 
 #popup {
@@ -80,15 +78,14 @@ html, body, .container {
     color: white;
 }
 
-#zero, #one, #two, #three, #four, #five, #six, #seven, #eight, #nine {
-    font-weight: 400;
+#divide, #multiply, #subtract, #addition {
+    background-color: #0097ff;
+}
+
+#clear, #brackets, #percent {
+    background-color: #33363D;
 }
 
 #equal {
     background-color: #00b140;
-    color: #ffffff;
-}
-
-#clear {
-    color: #00bbff;
 }
