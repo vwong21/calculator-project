@@ -82,10 +82,26 @@ html, body, .container {
     background-color: #0097ff;
 }
 
+#divide:active, #multiply:active, #subtract:active, #addition:active {
+    background-color: #00548b;
+}
+
 #clear, #brackets, #percent {
     background-color: #33363D;
 }
 
+#clear:active, #brackets:active, #percent:active {
+    background-color: #2C2C2C;
+}
+
 #equal {
     background-color: #00b140;
+}
+
+#equal:active {
+    background-color: #00762b;
+}
+
+.col:active {
+    background-color: #000000;
 }
